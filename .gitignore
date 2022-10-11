@@ -1,0 +1,9 @@
+#Ensure that we don't leak any secrets.
+
+.env
+*.key
+*.crt
+*.p12
+*.pem
+*.cert
+*.pfx

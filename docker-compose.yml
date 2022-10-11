@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  opp_agent:
+    platform: linux/amd64
+    build:
+      context: ./container_opp_agent
+      args:
+        OKTA_ORG : ${OKTA_ORG}
+        OKTA_ORG_TYPE : ${OKTA_ORG_TYPE}
+
+    volumes:
+     - ./csv:/opt/OktaProvisioningAgent/csv
+  sdk-demo:
+    build:
+      context: ./container_sdk_demo
+      args:
+        KEYSTORE_PASSWORD : ${KEYSTORE_PASSWORD}
+
+    volumes:
+     - ./sdk_data:/sdk_data
+
+    ports:
+     - "8080:8080"
+     - "8443:8443"

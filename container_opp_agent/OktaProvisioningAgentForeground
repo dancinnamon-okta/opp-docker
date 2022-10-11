@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# This script is a wrapper around the OPP startup intended to be used
+# by the service start.
+
+###DAN C DOCKER MODIFICATION- I cut this down to get rid of all the background/daemon stuff.
+###Dockerizing the solution negates the need for daemonization.
+###I also added my generated cert into the truststore.
+
+AgentInstallPrefix=$(rpm -q --queryformat '%{INSTPREFIXES}\n' OktaProvisioningAgent|tail -1)
+. $AgentInstallPrefix/defs.sh
+. $AgentInstallPrefix/conf/settings.conf
+
+if [[ ! -r $ConfigFile ]] ; then
+    echo "Config file $ConfigFile not readable."
+    exit 1
+fi
+
+echo -e "Configuring the java trust store to add our SDK demo cert..."
+/opt/OktaProvisioningAgent/jre/bin/keytool -import -noprompt -keystore /opt/OktaProvisioningAgent/jre/jre/lib/security/cacerts -storepass changeit -file /src/sdk_demo.cert -alias sdk_demo_cert
+
+$JAVA -Dagent_home=${AgentInstallPrefix} $JAVA_OPTS -jar $AgentJar -mode normal -configFilePath $ConfigFile
