@@ -39,4 +39,4 @@ To validate the operation of the SCIM service, visit the following URL:
 https://localhost:8443/scim-server-example-02.00.10-SNAPSHOT/Users
 
 In Okta, when configuring OPP for a given application, the base URL is:
-https://localhost:8443/scim-server-example-02.00.10-SNAPSHOT
+https://sdk-demo:8443/scim-server-example-02.00.10-SNAPSHOT
