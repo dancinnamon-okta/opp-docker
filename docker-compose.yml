@@ -22,3 +22,18 @@ services:
     ports:
      - "8080:8080"
      - "8443:8443"
+
+  scimgateway:
+    build:
+      context: ./container_scimgateway
+      args:
+        KEYSTORE_PASSWORD : ${KEYSTORE_PASSWORD}
+
+    volumes:
+     - ./scimgateway_data:/data
+     - ./container_scimgateway/config:/config
+
+    ports:
+     - "8880:8880"
+     - "8881:8881"
+     - "8882:8882"

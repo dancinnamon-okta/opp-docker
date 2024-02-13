@@ -7,3 +7,5 @@
 *.pem
 *.cert
 *.pfx
+sdk_data/*
+scimgateway_data/*

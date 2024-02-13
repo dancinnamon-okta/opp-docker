@@ -18,5 +18,7 @@ fi
 
 echo -e "Configuring the java trust store to add our SDK demo cert..."
 /opt/OktaProvisioningAgent/jre/bin/keytool -import -noprompt -keystore /opt/OktaProvisioningAgent/jre/jre/lib/security/cacerts -storepass changeit -file /src/sdk_demo.cert -alias sdk_demo_cert
+echo -e "Configuring the java trust store to add our scimgateway demo cert..."
+/opt/OktaProvisioningAgent/jre/bin/keytool -import -noprompt -keystore /opt/OktaProvisioningAgent/jre/jre/lib/security/cacerts -storepass changeit -file /src/scimgateway.cert -alias scimgateway_cert
 
 $JAVA -Dagent_home=${AgentInstallPrefix} $JAVA_OPTS -jar $AgentJar -mode normal -configFilePath $ConfigFile

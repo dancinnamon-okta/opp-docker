@@ -1,0 +1,130 @@
+{
+  "scimgateway": {
+    "port": 8880,
+    "localhostonly": false,
+    "payloadSize": null,
+    "scim": {
+      "version": "1.1",
+      "skipTypeConvert": false,
+      "skipMetaLocation": false,
+      "usePutSoftSync": false,
+      "usePutGroupMemberOfUser": false
+    },
+    "log": {
+      "loglevel": {
+        "file": "debug",
+        "console": "error"
+      },
+      "customMasking": null
+    },
+    "auth": {
+      "basic": [
+        {
+          "username": "gwadmin",
+          "password": "OGRlOTYxYjI5MGFhNDc1MWUyY2NiMzQ2MTZkOTg1OWU6NGJlZDE3YzZlN2NkMjMzOGZjOTFjMTZiMDZhMDJhMDU=",
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerToken": [
+        {
+          "token": null,
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerJwtAzure": [
+        {
+          "tenantIdGUID": null,
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerJwt": [
+        {
+          "secret": null,
+          "publicKey": null,
+          "options": {
+            "issuer": null
+          },
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerOAuth": [
+        {
+          "client_id": null,
+          "client_secret": null,
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "passThrough": {
+        "enabled": false,
+        "readOnly": false,
+        "baseEntities": []
+      }
+    },
+    "certificate": {
+      "key": null,
+      "cert": null,
+      "ca": null,
+      "pfx": {
+        "bundle": "scimgateway.p12",
+        "password": "process.env.KEYSTORE_PASSWORD"
+      }
+    },
+    "ipAllowList": [],
+    "emailOnError": {
+      "smtp": {
+        "enabled": false,
+        "host": null,
+        "port": 587,
+        "proxy": null,
+        "authenticate": true,
+        "username": null,
+        "password": null,
+        "sendInterval": 15,
+        "to": null,
+        "cc": null
+      }
+    },
+    "kubernetes": {
+      "enabled": false,
+      "shutdownTimeout": 15000,
+      "forceExitTimeout": 1000
+    },
+    "stream": {
+      "baseUrls": [],
+      "certificate": {
+        "ca": null
+      },
+      "subscriber": {
+        "enabled": false,
+        "entity": {
+          "undefined": {
+            "nats": {
+              "tenant": null,
+              "subject": null,
+              "jwt": null,
+              "secret": null
+            },
+            "deleteUserOnLastGroupRoleRemoval": false,
+            "skipConvertRolesToGroups": false,
+            "generateUserPassword": false,
+            "modifyOnly": false,
+            "replaceDomains": []
+          }
+        }
+      }
+    }
+  },
+  "endpoint": {
+    "entity": {
+      "undefined": {
+        "dbname": "/data/loki.db",
+        "persistence": false
+      }
+    }
+  }
+}

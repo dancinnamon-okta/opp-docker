@@ -1,0 +1,142 @@
+{
+  "scimgateway": {
+    "port": 8882,
+    "localhostonly": false,
+    "payloadSize": null,
+    "scim": {
+      "version": "2.0",
+      "skipTypeConvert": false,
+      "skipMetaLocation": false,
+      "usePutSoftSync": false,
+      "usePutGroupMemberOfUser": false
+    },
+    "log": {
+      "loglevel": {
+        "file": "debug",
+        "console": "error"
+      },
+      "customMasking": null
+    },
+    "auth": {
+      "basic": [
+        {
+          "username": "gwadmin",
+          "password": "password",
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerToken": [
+        {
+          "token": null,
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerJwtAzure": [
+        {
+          "tenantIdGUID": null,
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerJwt": [
+        {
+          "secret": null,
+          "publicKey": null,
+          "options": {
+            "issuer": null
+          },
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "bearerOAuth": [
+        {
+          "client_id": null,
+          "client_secret": null,
+          "readOnly": false,
+          "baseEntities": []
+        }
+      ],
+      "passThrough": {
+        "enabled": false,
+        "readOnly": false,
+        "baseEntities": []
+      }
+    },
+    "certificate": {
+      "key": null,
+      "cert": null,
+      "ca": null,
+      "pfx": {
+        "bundle": null,
+        "password": null
+      }
+    },
+    "ipAllowList": [],
+    "emailOnError": {
+      "smtp": {
+        "enabled": false,
+        "host": null,
+        "port": 587,
+        "proxy": null,
+        "authenticate": true,
+        "username": null,
+        "password": null,
+        "sendInterval": 15,
+        "to": null,
+        "cc": null
+      }
+    },
+    "kubernetes": {
+      "enabled": false,
+      "shutdownTimeout": 15000,
+      "forceExitTimeout": 1000
+    },
+    "stream": {
+      "baseUrls": [],
+      "certificate": {
+        "ca": null
+      },
+      "subscriber": {
+        "enabled": false,
+        "entity": {
+          "undefined": {
+            "nats": {
+              "tenant": null,
+              "subject": null,
+              "jwt": null,
+              "secret": null
+            },
+            "deleteUserOnLastGroupRoleRemoval": false,
+            "skipConvertRolesToGroups": false,
+            "generateUserPassword": false,
+            "modifyOnly": false,
+            "replaceDomains": []
+          }
+        }
+      }
+    }
+  },
+  "endpoint": {
+    "connection": {
+      "server": "MySqlHost",
+      "authentication": {
+        "type": "default",
+        "options": {
+          "userName": "sa",
+          "password": "password"
+        }
+      },
+      "options": {
+        "instanceName": "",
+        "port": 1433,
+        "database": "MyDatabase",
+        "useColumnNames": true,
+        "rowCollectionOnRequestCompletion": true,
+        "encrypt": false
+      }
+    }
+  }
+}
