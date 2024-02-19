@@ -21,7 +21,7 @@ git clone https://github.com/dancinnamon-okta/opp-docker.git
 ```console
 cp .env.example .env
 ```
-Follow the instructions in the file to fill in the 3 variables needed.
+Follow the instructions in the file to fill in the 5 variables needed.
 
 ### Step 3 - Build the images
 ```console
@@ -35,8 +35,26 @@ docker compose up
 ```
 This command will run the built images, and you're all set to show off Okta on-premise provisioning!
 In the Okta console in the dashboard->agents menu you can see that the OPP agent is connected.
-To validate the operation of the SCIM service, visit the following URL:
-https://localhost:8443/scim-server-example-02.00.10-SNAPSHOT/Users
 
-In Okta, when configuring OPP for a given application, the base URL is:
-https://sdk-demo:8443/scim-server-example-02.00.10-SNAPSHOT
+To validate the operation of the LDAP SCIM gateway, visit the following URL:
+https://localhost:8881/Users
+
+In Okta, when configuring OPP for a given application, use the following configuration:
+
+Base URL: https://scimgateway:8881
+
+Authentication: Basic
+
+Username: Value set in .env file
+
+Password: Value set in .env file
+
+Unique field: userName
+
+
+The following capabilities are supported against LDAP:
+* Create, Update, Disable Users
+    * Attributes Supported: FirstName, LastName, Email, Mobile
+
+* Group Push
+* Password Push
