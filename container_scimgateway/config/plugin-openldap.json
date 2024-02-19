@@ -1,6 +1,6 @@
 {
   "scimgateway": {
-    "port": 8880,
+    "port": 8881,
     "localhostonly": false,
     "payloadSize": null,
     "scim": {
@@ -13,15 +13,15 @@
     "log": {
       "loglevel": {
         "file": "debug",
-        "console": "error"
+        "console": "debug"
       },
       "customMasking": null
     },
     "auth": {
       "basic": [
         {
-          "username": "gwadmin",
-          "password": "OGRlOTYxYjI5MGFhNDc1MWUyY2NiMzQ2MTZkOTg1OWU6NGJlZDE3YzZlN2NkMjMzOGZjOTFjMTZiMDZhMDJhMDU=",
+          "username": "process.env.LDAP_ADMIN_USERNAME",
+          "password": "process.env.LDAP_ADMIN_PASSWORD",
           "readOnly": false,
           "baseEntities": []
         }
@@ -122,8 +122,81 @@
   "endpoint": {
     "entity": {
       "undefined": {
-        "dbname": "/data/loki.db",
-        "persistence": false
+        "baseUrls": [
+          "ldap://openldap:1389"
+        ],
+        "username": "process.env.LDAP_ADMIN_DN",
+        "password": "process.env.LDAP_ADMIN_PASSWORD",
+        "ldap": {
+          "userBase": "ou=users,dc=example,dc=org",
+          "groupBase": "ou=users,dc=example,dc=org",
+          "userFilter": "(!(objectClass=posixAccount))",
+          "groupFilter": null,
+          "userNamingAttr": "cn",
+          "groupNamingAttr": "cn",
+          "userObjectClasses": [
+            "inetOrgPerson",
+            "person",
+            "top"
+          ],
+          "groupObjectClasses": [
+            "groupOfNames"
+          ]
+        }
+      }
+    },
+    "map": {
+      "group": {
+        "entryDN": {
+          "mapTo": "id",
+          "type": "string"
+        },
+        "cn": {
+          "mapTo": "displayName",
+          "type": "string"
+        },
+        "member": {
+          "mapTo": "members.value",
+          "type": "array"
+        }
+      },
+      "user": {
+        "entryDN": {
+          "mapTo": "id",
+          "type": "string"
+        },
+        "cn": {
+          "mapTo": "userName",
+          "type": "string"
+        },
+        "employeeType": {
+          "mapTo": "active",
+          "type": "string"
+        },
+        "userPassword": {
+          "mapTo": "password",
+          "type": "string"
+        },
+        "givenName": {
+          "mapTo": "name.givenName",
+          "type": "string"
+        },
+        "sn": {
+          "mapTo": "name.familyName",
+          "type": "string"
+        },
+        "displayName": {
+          "mapTo": "name.formatted",
+          "type": "string"
+        },
+        "mail": {
+          "mapTo": "emails.primary.value",
+          "type": "string"
+        },
+        "mobile": {
+          "mapTo": "phoneNumbers.mobile.value",
+          "type": "string"
+        }
       }
     }
   }

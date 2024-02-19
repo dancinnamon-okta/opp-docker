@@ -8,4 +8,5 @@
 *.cert
 *.pfx
 sdk_data/*
-scimgateway_data/*
+openldap_data/*
+.DS_Store

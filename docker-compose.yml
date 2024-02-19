@@ -27,13 +27,46 @@ services:
     build:
       context: ./container_scimgateway
       args:
-        KEYSTORE_PASSWORD : ${KEYSTORE_PASSWORD}
+        KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+        LDAP_ADMIN_USERNAME: ${LDAP_ADMIN_USERNAME}
+        LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
+        LDAP_ADMIN_DN: cn=${LDAP_ADMIN_USERNAME},dc=example,dc=org
 
     volumes:
-     - ./scimgateway_data:/data
-     - ./container_scimgateway/config:/config
+     - ./container_scimgateway/config/index.js:/home/scimgateway/index.js
+     - ./container_scimgateway/config/plugin-openldap.json:/home/scimgateway/config/plugin-openldap.json
+     - ./container_scimgateway/config/plugin-openldap.js:/home/scimgateway/lib/plugin-openldap.js
 
     ports:
-     - "8880:8880"
      - "8881:8881"
-     - "8882:8882"
+
+  openldap:
+    image: bitnami/openldap:latest
+    volumes: 
+      - ./openldap_data:/bitnami/openldap
+    ports:
+      - '1389:1389'
+      - '1636:1636'
+    environment:
+      - LDAP_ROOT=dc=example,dc=org
+      - LDAP_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME}
+      - LDAP_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD}
+      - LDAP_ADMIN_DN=cn=${LDAP_ADMIN_USERNAME},dc=example,dc=org
+
+  openldap-phpldapadmin:
+    platform: linux/amd64
+    image: leenooks/phpldapadmin:2.0.0-dev
+    environment:
+      - APP_KEY=${LDAP_ADMIN_ENCRYPTION_KEY}
+      - APP_URL=http://localhost:18080
+      - LDAP_HOST=openldap
+      - LDAP_PORT=1389
+      - LDAP_BASE_DN=dc=example,dc=org
+      - LDAP_USERNAME=cn=${LDAP_ADMIN_USERNAME},dc=example,dc=org
+      - LDAP_PASSWORD=${LDAP_ADMIN_PASSWORD}
+      - LDAP_LOGIN_ATTR=cn
+      - LDAP_LOGIN_OBJECTCLASS=inetOrgPerson
+    depends_on:
+      - openldap
+    ports:
+      - 18080:80

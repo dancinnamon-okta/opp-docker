@@ -29,4 +29,6 @@ mv ./scimgateway.cert ./container_opp_agent
 mv ./sdk_demo.p12 ./container_sdk_demo
 mv ./scimgateway.p12 ./container_scimgateway
 
+echo "LDAP_ADMIN_ENCRYPTION_KEY=base64:$(openssl rand -base64 32)" >> ./.env
+
 docker compose build --no-cache
