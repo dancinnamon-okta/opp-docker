@@ -36,8 +36,11 @@ docker compose up
 This command will run the built images, and you're all set to show off Okta on-premise provisioning!
 In the Okta console in the dashboard->agents menu you can see that the OPP agent is connected.
 
-To validate the operation of the LDAP SCIM gateway, visit the following URL:
+To validate the operation of the LDAP SCIM gateway, visit the following URLs:
 https://localhost:8881/Users
+http://localhost:18080
+
+You may also execute ldap commands, such as ldapsearch, from the commandline against ldap://localhost:1389.
 
 In Okta, when configuring OPP for a given application, use the following configuration:
 
