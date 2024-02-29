@@ -12,9 +12,11 @@ This repository contains an easy way to run Okta's on-premise provisioning agent
 > * Docker installed on your machine
 > * OpenSSL (already installed on Mac/Linux)
 
-### Step 1 - Download this repository
+### Step 1 - Download this repository, and switch to the openldap branch.
 ```console
 git clone https://github.com/dancinnamon-okta/opp-docker.git
+
+git switch openldap
 ```
 
 ### Step 2 - Copy and fill in the .env file
